@@ -1,0 +1,13 @@
+{
+  "name"         : "recommended-rss",
+  "version"      : "0.0.1",
+  "description"  : "Scraping your way to recommended rss feeds",
+  "main"         : "server.js",
+  "author"       : "Paul Bausch",
+  "dependencies" : {
+    "express"    : "latest",
+    "request-promise"    : "latest",
+    "cheerio"    : "latest",
+    "rss"        : "latest"
+  }
+}
