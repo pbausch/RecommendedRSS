@@ -17,3 +17,11 @@ Accepts a Twitter username at
 	/twitter-likes?name=[username w/o @]
   
 It gathers the most recent tweets marked as a favorite from that user via the Twitter API. You'll need to register an app at the Twitter API (https://apps.twitter.com/) and pass in a consumer key, consumer secret, and app bearer token when you start this script.
+
+## Github
+
+Accepts a Github username at 
+
+	/github-stars?name=[username]
+  
+It scrapes the user's starred projects tab at Github and returns an RSS feed that includes those projects.
