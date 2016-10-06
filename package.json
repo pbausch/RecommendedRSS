@@ -8,6 +8,7 @@
     "express"    : "latest",
     "request-promise"    : "latest",
     "cheerio"    : "latest",
-    "rss"        : "latest"
+    "rss"        : "latest",
+    "twitter"    : "latest"
   }
 }
