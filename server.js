@@ -60,8 +60,7 @@ app.get('/medium-recommended', function(req, res) {
   	}
 });
 
-
-app.get('/twitter-likes', function(req, res) {
+app.get('/twitter-likes ', function(req, res) {
 
 	var queryData = url.parse(req.url, true).query;
 	
@@ -112,5 +111,57 @@ app.get('/twitter-likes', function(req, res) {
 		res.end("Need a name!");
   	}
 });
+
+app.get('/github-stars', function(req, res) {
+
+	var queryData = url.parse(req.url, true).query;
+	
+	if (queryData.name) {
+		var github_url = 'https://github.com/'+ queryData.name +'?tab=stars';
+		var options = {
+		    uri: github_url,
+		    transform: function (body) {
+		        return cheerio.load(body);
+		    }
+		};
+		
+		rp(options) 
+		    .then(function ($) {
+				var feed = new RSS({
+					title: queryData.name + '\'s stars on Github',
+					description: queryData.name + '\'s stars on Github',
+					site_url: github_url,
+					language: 'en',
+					ttl: '60'
+				});
+			    $('.d-table').each(function(){
+			        var data = $(this);
+					var post_title = data.find('h3.f4').find('a').text();
+					var post_desc = data.find('p.text-gray').text();
+					if (post_desc.length == 0) {
+						post_desc = '[no description]';
+					}
+					var post_url = 'https://github.com' + data.find('h3.f4').find('a').attr('href');
+					if (post_title.length > 0) {
+						feed.item({
+							title: post_title,
+							description: post_desc,
+							url: post_url
+						});
+					}
+			    });
+				xml = feed.xml({indent: true});
+
+				res.end(xml);
+			})
+			.catch(function (err) {
+				res.end(error);
+			});
+
+  	} else {
+		res.end("Need a name!");
+  	}
+});
+
 app.listen('8081');
 console.log('server started on 8081');
