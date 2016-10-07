@@ -163,5 +163,57 @@ app.get('/github-stars', function(req, res) {
   	}
 });
 
+app.get('/hackernews-favorites', function(req, res) {
+
+	var queryData = url.parse(req.url, true).query;
+	
+	if (queryData.name) {
+		var hn_url = 'https://news.ycombinator.com/favorites?id=' + queryData.name;
+		var options = {
+		    uri: hn_url,
+		    transform: function (body) {
+		        return cheerio.load(body);
+		    }
+		};
+		
+		rp(options) 
+		    .then(function ($) {
+				var feed = new RSS({
+					title: queryData.name + '\'s favories on HackerNews',
+					description: queryData.name + '\'s favorites on HackerNews',
+					site_url: hn_url,
+					language: 'en',
+					ttl: '60'
+				});
+			    $('.athing').each(function(){
+			        var data = $(this);
+					var post_title = data.find('.title').find('a').html();
+					var post_desc = data.find('.title').find('.sitebit').text();
+					if (post_desc.length == 0) {
+						post_desc = '[no description]';
+					}
+					var post_desc = post_desc + ' ' + data.next().find('.subtext').html().replace(/href="/g,'href="https://news.ycombinator.com/');
+					var post_url = data.find('.title').find('a').attr('href');
+					if (post_title.length > 0) {
+						feed.item({
+							title: post_title,
+							description: post_desc,
+							url: post_url
+						});
+					}
+			    });
+				xml = feed.xml({indent: true});
+
+				res.end(xml);
+			})
+			.catch(function (err) {
+				res.end(error);
+			});
+
+  	} else {
+		res.end("Need a name!");
+  	}
+});
+
 app.listen('8081');
 console.log('server started on 8081');

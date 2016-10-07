@@ -25,3 +25,11 @@ Accepts a Github username at
 	/github-stars?name=[username]
   
 It scrapes the user's starred projects tab at Github and returns an RSS feed that includes those projects.
+
+## Hacker News
+
+Accepts a Hacker News username at
+
+	/hackernews-favorites?name=[username]
+
+It scrapes the user's favorite stories tab at Hacker News and returns an RSS feed that includes those links.
