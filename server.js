@@ -104,6 +104,7 @@ app.get('/twitter-likes', function(req, res) {
 			}
 			else { 
 				console.log(error); 
+				res.end("Problems, sorry!");
 			}
 		});
 		
