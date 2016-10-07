@@ -60,7 +60,7 @@ app.get('/medium-recommended', function(req, res) {
   	}
 });
 
-app.get('/twitter-likes ', function(req, res) {
+app.get('/twitter-likes', function(req, res) {
 
 	var queryData = url.parse(req.url, true).query;
 	
