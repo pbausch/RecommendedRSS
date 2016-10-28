@@ -30,10 +30,12 @@ app.get('/medium-recommended', function(req, res) {
 					language: 'en',
 					ttl: '60'
 				});
-			    $('article').each(function(){
+			    $('.postArticle').each(function(){
 			        var data = $(this);
 					var post_title = data.find('.layoutSingleColumn').find('h3').text();
+					console.log(post_title);
 					var post_desc = data.find('.layoutSingleColumn').find('h4').text();
+					console.log(post_desc);
 					if (post_desc.length === 0) {
 						post_desc = data.find('.layoutSingleColumn').find('p').text();
 					}
