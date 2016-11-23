@@ -137,14 +137,14 @@ app.get('/github-stars', function(req, res) {
 					language: 'en',
 					ttl: '60'
 				});
-			    $('.d-table').each(function(){
+			    $('.d-block').each(function(){
 			        var data = $(this);
-					var post_title = data.find('h3.f4').find('a').text();
+					var post_title = data.find('h3').find('a').text();
 					var post_desc = data.find('p.text-gray').text();
 					if (post_desc.length == 0) {
 						post_desc = '[no description]';
 					}
-					var post_url = 'https://github.com' + data.find('h3.f4').find('a').attr('href');
+					var post_url = 'https://github.com' + data.find('h3').find('a').attr('href');
 					if (post_title.length > 0) {
 						feed.item({
 							title: post_title,
