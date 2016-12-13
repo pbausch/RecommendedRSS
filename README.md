@@ -33,3 +33,11 @@ Accepts a Hacker News username at
 	/hackernews-favorites?name=[username]
 
 It scrapes the user's favorite stories tab at Hacker News and returns an RSS feed that includes those links.
+
+## Mlkshk
+
+Accepts a Mlkshk username at
+
+	/mlkshk-likes?name=[username]
+
+It scrapes the user's likes at Mlkshk returns an RSS feed that includes those items.
