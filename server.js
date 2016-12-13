@@ -54,7 +54,7 @@ app.get('/medium-recommended', function(req, res) {
 				res.end(xml);
 			})
 			.catch(function (err) {
-				res.end(error);
+				console.log(err);
 			});
 
   	} else {
@@ -158,7 +158,7 @@ app.get('/github-stars', function(req, res) {
 				res.end(xml);
 			})
 			.catch(function (err) {
-				res.end(error);
+				console.log(err);
 			});
 
   	} else {
@@ -210,7 +210,61 @@ app.get('/hackernews-favorites', function(req, res) {
 				res.end(xml);
 			})
 			.catch(function (err) {
-				res.end(error);
+				console.log(err);
+			});
+
+  	} else {
+		res.end("Need a name!");
+  	}
+});
+
+app.get('/mlkshk-likes', function(req, res) {
+
+	var queryData = url.parse(req.url, true).query;
+	
+	if (queryData.name) {
+		var ms_url = 'http://mlkshk.com/user/' + queryData.name + '/likes';
+		console.log(ms_url);
+		var options = {
+		    uri: ms_url,
+		    transform: function (body) {
+		        return cheerio.load(body);
+		    }
+		};
+		
+		rp(options) 
+		    .then(function ($) {
+				var feed = new RSS({
+					title: queryData.name + '\'s favories on mlkshk',
+					description: queryData.name + '\'s favorites on mlkshk',
+					site_url: ms_url,
+					language: 'en',
+					ttl: '60'
+				});
+			    $('.image-title').each(function(){
+			        var data = $(this);
+					var post_title = data.find('h3').text();
+					var content = data.next();
+					var post_desc = content.find('.the-image').html().replace(/src="/,'src="http:');
+					if (post_desc.length == 0) {
+						post_desc = '[no description]';
+					}
+					post_desc = post_desc + '<br>' + content.find('.the-description').text();
+					var post_url = 'http://mlkshk.com' + content.find('.the-image').find('a').attr('href');
+					if (post_title.length > 0) {
+						feed.item({
+							title: post_title,
+							description: post_desc,
+							url: post_url
+						});
+					}
+			    });
+				xml = feed.xml({indent: true});
+
+				res.end(xml);
+			})
+			.catch(function (err) {
+				console.log(err);
 			});
 
   	} else {
