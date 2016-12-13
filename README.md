@@ -40,4 +40,4 @@ Accepts a Mlkshk username at
 
 	/mlkshk-likes?name=[username]
 
-It scrapes the user's likes at Mlkshk returns an RSS feed that includes those items.
+It scrapes the user's likes at Mlkshk and returns an RSS feed that includes those items.
