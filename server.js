@@ -32,15 +32,15 @@ app.get('/medium-recommended', function(req, res) {
 				});
 			    $('.postArticle').each(function(){
 			        var data = $(this);
-					var post_title = data.find('.layoutSingleColumn').find('h3').text();
+					var post_title = data.find('.section-inner').find('h3').text();
 					console.log(post_title);
-					var post_desc = data.find('.layoutSingleColumn').find('h4').text();
+					var post_desc = data.find('.section-inner').find('h4').text();
 					console.log(post_desc);
 					if (post_desc.length === 0) {
-						post_desc = data.find('.layoutSingleColumn').find('p').text();
+						post_desc = data.find('.section-inner').find('p').text();
 					}
-					var post_url = data.find('.layoutSingleColumn').find('a').attr('href');
-					post_url = post_url.split("?")[0];
+					var post_url = data.find('.postArticle-content').parent().attr('href');
+					//post_url = post_url.split("?")[0];
 					if (post_title.length > 0) {
 						feed.item({
 							title: post_title,
