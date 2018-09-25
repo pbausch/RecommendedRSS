@@ -24,22 +24,26 @@ app.get('/medium-recommended', function(req, res) {
 		rp(options) 
 		    .then(function ($) {
 				var feed = new RSS({
-					title: $('.heading-title').text() + ' on Medium',
-					description: $('.heading-title').text() + ' on Medium',
+					title: $('h1.cj').text() + ' on Medium',
+					description: $('h1.cj').text() + ' on Medium',
 					site_url: medium_url,
 					language: 'en',
 					ttl: '60'
 				});
-			    $('.postArticle').each(function(){
+			    $('.k').each(function(){
 			        var data = $(this);
-					var post_title = data.find('.section-inner').find('h3').text();
+					var post_title = data.find('section').find('h1').text();
 					//console.log(post_title);
-					var post_desc = data.find('.section-inner').find('h4').text();
-					//console.log(post_desc);
+					var post_desc = data.find('section').find('h2').text();
 					if (post_desc.length === 0) {
-						post_desc = data.find('.section-inner').find('p').text();
+						post_desc = data.find('section').find('p').text();
 					}
-					var post_url = data.find('.postArticle-content').parent().attr('href');
+					var post_img = data.find('section').find('figure').find('div').html();
+					if (post_img) {
+						post_desc += "<br><br>" + post_img;
+					}
+					//console.log(post_desc);
+					var post_url = data.find('a').attr('href');
 					post_url = post_url.split("?")[0];
 					if (post_title.length > 0) {
 						feed.item({
