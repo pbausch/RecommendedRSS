@@ -1,6 +1,6 @@
 # Recommended RSS
 
-This is a quick node.js script that generates RSS feeds of Likes (Favorites, Hearts, etc.) from some social sites.
+This is a quick node.js script that generates RSS feeds of Likes (Favorites, Hearts, Claps, etc.) from some social sites.
 
 ## Medium
 
