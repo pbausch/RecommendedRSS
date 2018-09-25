@@ -43,13 +43,13 @@ app.get('/medium-recommended', function(req, res) {
 						post_desc += "<br><br>" + post_img;
 					}
 					//console.log(post_desc);
-					var post_url = data.find('a').attr('href');
+					var post_url = data.find("span.ae").find('a').attr('href');
 					post_url = post_url.split("?")[0];
 					if (post_title.length > 0) {
 						feed.item({
 							title: post_title,
 							description: post_desc,
-							url: post_url
+							url: 'https://medium.com' + post_url
 						});
 					}
 			    });
