@@ -24,8 +24,8 @@ app.get('/medium-recommended', function(req, res) {
 		rp(options) 
 		    .then(function ($) {
 				var feed = new RSS({
-					title: $('h1.cj').text() + ' on Medium',
-					description: $('h1.cj').text() + ' on Medium',
+					title: queryData.name + ' on Medium',
+					description: queryData.name + ' on Medium',
 					site_url: medium_url,
 					language: 'en',
 					ttl: '60'
