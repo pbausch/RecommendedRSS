@@ -43,8 +43,10 @@ app.get('/medium-recommended', function(req, res) {
 						post_desc += "<br><br>" + post_img;
 					}
 					//console.log(post_desc);
-					var post_url = data.find("span.ae").find('a').attr('href');
-					post_url = post_url.split("?")[0];
+					var post_url = data.find('a[href*="/p/"]').attr('href');
+					if (post_url) {
+						post_url = post_url.split("?")[0];
+					}
 					if (post_title.length > 0) {
 						feed.item({
 							title: post_title,
